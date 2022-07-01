@@ -9,8 +9,6 @@
     <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property> 
     <property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:orcl"></property> 
 
-    <!-- Oracle 11g 경우 value="jdbc:oracle:thin:@localhost:1521:XE" --> 
-    <!-- Oracle 19 경우 value="jdbc:oracle:thin:@localhost:1521:orcl" -->
      
     <property name="username" value="zerobbang"></property> 
     <!-- Oracle 버전에 따라 계정명에 c##을 붙여주어야 하는 경우가 있습니다. -->
@@ -20,5 +18,9 @@
 	<bean id="datasource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close"> 
 	    <constructor-arg ref="hikariConfig"></constructor-arg> 
 	</bean>
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="datasource"></property>
+    </bean> 
 		
 </beans>
