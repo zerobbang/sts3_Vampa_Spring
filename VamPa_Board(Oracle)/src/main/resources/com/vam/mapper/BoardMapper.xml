@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Google Mybatis Mapper searching-->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.vam.mapper.BoardMapper">
+  <!-- mapper tag 사이에서 sql문 실행 -->
+  <!-- id와 함수 이름을 통해 매핑 시작 -->
+ 	<insert id="enroll">
+ 	<!-- 인자로 전달받은 dto의 getter함수를 자동으로 호출해서 매핑 하여 결과를 다음 #{}에 저장 -->
+ 		insert into vam_board(title,content,writer) values (#{title}, #{content}, #{writer})
+ 	</insert>
+ 
+  </mapper>
