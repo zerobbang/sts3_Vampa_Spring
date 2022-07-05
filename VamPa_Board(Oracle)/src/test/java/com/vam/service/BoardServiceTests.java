@@ -40,5 +40,13 @@ public class BoardServiceTests {
     public void testGetList() {
     	service.getList().forEach(board -> log.info(""+board));
     }
+    
+    
+    @Test
+    public void testGetPage() {
+    	int bno = 8;
+    	//info는 스트링만 취급하기 때문에
+    	log.info(""+service.getPage(bno));
+    }
  
 }

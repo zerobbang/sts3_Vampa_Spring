@@ -1,3 +1,6 @@
+// DAO 계층
+// DB 질의를 통해 데이터 서치 담당하는 객체
+
 package com.vam.persistence;
 
 import java.sql.Connection;

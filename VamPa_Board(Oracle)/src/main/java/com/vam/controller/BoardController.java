@@ -27,10 +27,13 @@ public class BoardController {
 	// lombok은 어노테이션으로 가능 @log4j
 	private static final Logger log = LoggerFactory.getLogger(BoardController.class);
 	
+	
 	 /* 게시판 목록 페이지 접속 */
     @GetMapping("/list")
     // => @RequestMapping(value="list", method=RequestMethod.GET)
     public void boardListGET(Model model) {
+    	// model 객체는 controller 에서 생성된 데이터를 담아 view 로 전달할 때 사용하는 객체
+    	// servlet의 request.setAttribute()와 비슷한 역할을 한다.
         
         log.info("게시판 목록 페이지 진입");
         
@@ -50,7 +53,7 @@ public class BoardController {
 	// GetMapping은 요청을 받으면 화면을 띄워준다
 	// PostMapping은 처리값을 받아와서 처리한다.
 	
-	// 게시판 등록 
+	// 게시글 등록 
 	// 목록 페이지로 이동 처리
 	@PostMapping("/enroll")
 	public String boardEnrollPOST(BoardVO board, RedirectAttributes rttr) {
@@ -65,4 +68,37 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
+	
+	
+	// 게시글 상세 조회
+	// GET 요청은 페이지 이동이 거듭되는 동안 이전 페이지들의 요청 정보를 기억하고 있어야 한다.
+	// url 파라미터가 누적되어 전달되는데 이런 기법을 URL Rewrite 처리 한다.
+	@GetMapping
+	public void boardGetPage(int bno, Model model) {
+		model.addAttribute("pageInfo",bservice.getPage(bno));
+
+	}
+	
+	
+	// 수정 페이지 이동
+	@GetMapping("/modify")
+    public void boardModifyGET(int bno, Model model) {
+        
+        model.addAttribute("pageInfo", bservice.getPage(bno));
+        
+    }
+	
+	/* 페이지 수정 */
+    @PostMapping("/modify")
+    public String boardModifyPOST(BoardVO board, RedirectAttributes rttr) {
+        
+        bservice.modify(board);
+        
+        rttr.addFlashAttribute("result", "modify success");
+        
+        return "redirect:/board/list";
+        
+    }
+	
+
 }

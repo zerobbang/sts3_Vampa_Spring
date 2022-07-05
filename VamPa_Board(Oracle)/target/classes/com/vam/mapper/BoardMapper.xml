@@ -18,8 +18,24 @@
  	<!-- 게시판 목록 -->
     <select id="getList" resultType="com.vam.model.BoardVO">
     
-        select * from vam_board
+        select * from vam_board order by bno
     
     </select>
+    
+    
+    <!-- 게시글 상세 조회 -->
+   <select id="getPage" resultType="com.vam.model.BoardVO">
+    
+        select * from vam_board where bno = #{bno}
+    
+    </select>
+    
+    
+    <!-- 게시글 수정 -->
+     <update id="modify" >
+    
+        update vam_board set title = #{title}, content = #{content}, updatedate = sysdate where bno = #{bno}
+    
+    </update>
  
   </mapper>

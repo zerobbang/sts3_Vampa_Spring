@@ -49,6 +49,30 @@ public class BoardMapperTests {
     	 }
      }
      
+     //게시글 상세 조회
+     @Test
+     public void testGetPage() {
+    	 int bno = 8;
+    	 log.info(""+mapper.getPage(bno));
+     }
+     
+     
+     @Test
+     public void testModify() {
+    	 // given, when, then
+    	 BoardVO vo = new BoardVO();
+    	 vo.setBno(8);
+    	 
+    	 // 데이터 변경
+    	 vo.setTitle("Junit에서 바꾼...");
+    	 vo.setContent("안녕하세요");
+
+    	 // 실행
+    	 int result = mapper.modify(vo);
+    	 // 결과
+    	 log.info("수정 결과 : "+result);
+     }
+     
  
 }
 
