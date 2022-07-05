@@ -1,5 +1,7 @@
 package com.vam.mapper;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -32,6 +34,19 @@ public class BoardMapperTests {
          
          mapper.enroll(vo);
          
+     }
+     
+     
+     // 리스트 출력
+     // for 문 , 향상된 for 문 , foreach&람다식
+     @Test
+     public void testGetList() {
+    	 
+    	 List list = mapper.getList();
+    	 
+    	 for(Object a : list) {
+    		 log.info(""+a);
+    	 }
      }
      
  
