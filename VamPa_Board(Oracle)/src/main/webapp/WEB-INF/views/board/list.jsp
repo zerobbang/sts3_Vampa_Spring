@@ -69,6 +69,10 @@
  a:link {color:black; text-decoration: none;}
  a:visited {color:black; text-decoration: none;}
  a:hover {color:black; text-decoration: underline;}
+ .active{
+      background-color: #cdd5ec;
+  }
+ 
   </style>
 </head>
 <body>
@@ -116,7 +120,8 @@
 			
 				<!-- 각 번호 페이지 버튼 -->
 				<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-                    <li class="pageInfo_btn"><a href="${num}">${num}</a></li>
+					<!-- 컨트롤러에서 넘겨준 번호가 반복분을 돌다가 동일한 번호이면 active 동적 추가 -->
+                    <li class="pageInfo_btn ${pageMaker.cri.pageNum == num ? "active":"" }"><a href="${num}">${num}</a></li>
                 </c:forEach>
                 
                 <!-- 이후 페이지 버튼 -->
