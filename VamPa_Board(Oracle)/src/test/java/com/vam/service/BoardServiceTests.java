@@ -48,5 +48,14 @@ public class BoardServiceTests {
     	//info는 스트링만 취급하기 때문에
     	log.info(""+service.getPage(bno));
     }
+    
+    @Test
+    public void testDelete() {
+    	int result = service.delete(2);
+    	log.info("result S : "+result);
+    }
+    
+    // 페이징 테스트 생략
+    
  
 }

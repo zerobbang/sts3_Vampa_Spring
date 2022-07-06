@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.vam.model.BoardVO;
+import com.vam.model.Criteria;
 import com.vam.service.BoardService;
 
 @Controller
@@ -31,13 +32,16 @@ public class BoardController {
 	 /* 게시판 목록 페이지 접속 */
     @GetMapping("/list")
     // => @RequestMapping(value="list", method=RequestMethod.GET)
-    public void boardListGET(Model model) {
+    // 
+    public void boardListGET(Model model,Criteria cri) {
     	// model 객체는 controller 에서 생성된 데이터를 담아 view 로 전달할 때 사용하는 객체
     	// servlet의 request.setAttribute()와 비슷한 역할을 한다.
-        
         log.info("게시판 목록 페이지 진입");
         
-        model.addAttribute("list", bservice.getList());
+        // model.addAttribute("list", bservice.getList());
+        // 원래는 위 코드 였지만 이제 페이징 기능을 구현하면서 파라미터로 Criteria를 사용하기 때문에
+        // 이에 맞게 getListPaging으로 넘겨준다.
+        model.addAttribute("list", bservice.getListPaging(cri));
         // list에 bservice.getList()값을 담아 셋팅한다.
         
     }
@@ -98,6 +102,15 @@ public class BoardController {
         
         return "redirect:/board/list";
         
+    }
+    
+    
+    // 게시글 삭제
+    @PostMapping("/delete")
+    public String boardDeletePOST(int bno, RedirectAttributes rttr) {
+    	bservice.delete(bno);
+    	rttr.addFlashAttribute("result","delete success");
+    	return "redirect:/board/list";
     }
 	
 
