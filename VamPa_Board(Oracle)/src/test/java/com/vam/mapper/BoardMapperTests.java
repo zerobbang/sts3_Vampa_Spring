@@ -93,6 +93,12 @@ public class BoardMapperTests {
          list.forEach(board -> log.info("" + board));
      }
      
+     @Test
+     public void testGetTotal() {
+    	 int total = mapper.getTotal();
+    	 log.info("총 : "+ total);
+     }
+     
  
 }
 

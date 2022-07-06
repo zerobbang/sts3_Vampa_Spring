@@ -88,7 +88,22 @@
             </tr>
         </c:forEach>
 	</table>
+
+	<!-- 번호 페이지 구현 -->
+	<div class="pageInfo_wrap" >
+		<div class="pageInfo_area">
+			<ul id="pageInfo" class="pageInfo">
+				<!-- 각 번호 페이지 버튼 -->
+				<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                    <li class="pageInfo_btn"><a href="${num}">${num}</a></li>
+                </c:forEach>
+			</ul>
+		</div>
+	</div>
+	
 	<form id="moveForm" method="get">    
+		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+        <input type="hidden" name="amount" value="${pageMaker.cri.amount }">
     </form>
 </div>
 
@@ -142,8 +157,7 @@
     	// jquery name 받아와서 내용을 제거해주기
     	let nameEle = $("input[name=bno]");
     	// name 불러온 값 제거 > reset
-    	//nameEle.remove();
-    	moveForm.empty();
+    	nameEle.remove();
     	// 위는 Form 안을 비워주기.
     	// vanila js는 부모.removeChild(자식)으로 지우고
     	// jquery는 자기.remove()로 지운다.
@@ -151,6 +165,18 @@
         moveForm.append("<input type='hidden' name='bno' value='"+ $(this).attr("href")+ "'>");
         moveForm.attr("action", "/board/get");
         moveForm.submit();
+    });
+ 	
+ 	// class pageIngo의 a 태그
+	$(".pageInfo a").on("click", function(e){
+		
+		e.preventDefault();
+		
+		// name이 pageNum인 input 태그의 값을 href(선택한번호 번호)로 바꿔라
+        moveForm.find("input[name='pageNum']").val($(this).attr("href"));
+        moveForm.attr("action", "/board/list");
+        moveForm.submit();
+        
     });
     
 </script>

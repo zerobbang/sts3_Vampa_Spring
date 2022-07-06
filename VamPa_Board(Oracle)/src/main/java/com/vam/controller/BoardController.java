@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.vam.model.BoardVO;
 import com.vam.model.Criteria;
+import com.vam.model.PageMakeDTO;
 import com.vam.service.BoardService;
 
 @Controller
@@ -32,7 +33,10 @@ public class BoardController {
 	 /* 게시판 목록 페이지 접속 */
     @GetMapping("/list")
     // => @RequestMapping(value="list", method=RequestMethod.GET)
-    // 
+    // 원래 getList를 불러올거면 Criteria 데이터 타입이 필요하지 않다.
+    // 그런데 우리는 페이징 기능 구현 하면서 getList함수를 사용하는 것이 아니라 getListPaging함수를 사용할 것이기 때문에
+    // 그 함수의 생성자에 맞춰서 바꿔준다.
+    // total 추가
     public void boardListGET(Model model,Criteria cri) {
     	// model 객체는 controller 에서 생성된 데이터를 담아 view 로 전달할 때 사용하는 객체
     	// servlet의 request.setAttribute()와 비슷한 역할을 한다.
@@ -44,6 +48,10 @@ public class BoardController {
         model.addAttribute("list", bservice.getListPaging(cri));
         // list에 bservice.getList()값을 담아 셋팅한다.
         
+        int total = bservice.getTotal();
+        PageMakeDTO pageMake = new PageMakeDTO(cri, total);
+        model.addAttribute("pageMaker",pageMake);
+        
     }
 	// servlet-context를 통해서 /WEB-INF/views/board/list.jsp로 리턴한다.
 	
@@ -52,6 +60,7 @@ public class BoardController {
 	public void boardEnrollGET() {
 		log.info("게시판 등록 페이지 진입");
 	}
+
 	
 	
 	// GetMapping은 요청을 받으면 화면을 띄워준다
@@ -113,5 +122,6 @@ public class BoardController {
     	return "redirect:/board/list";
     }
 	
+    
 
 }

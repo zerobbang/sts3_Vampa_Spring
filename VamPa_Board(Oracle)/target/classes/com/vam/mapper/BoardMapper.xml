@@ -61,6 +61,11 @@
     ]]>
     
     </select>
+    
+    <!-- total 구하는 쿼리 -->
+    <select id="getTotal" resultType="int">
+    	select count(*) from vam_board
+    </select>
 
  
   </mapper>

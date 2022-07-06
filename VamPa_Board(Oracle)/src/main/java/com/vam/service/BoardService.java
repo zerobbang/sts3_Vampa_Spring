@@ -24,4 +24,7 @@ public interface BoardService {
     
     // 페이징
     public List<BoardVO> getListPaging(Criteria cri);
+    
+    // 게시글 총 개수
+    public int getTotal();
 }
