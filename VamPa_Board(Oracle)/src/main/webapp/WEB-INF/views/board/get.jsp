@@ -87,6 +87,8 @@ textarea{
 	<!-- 다양한 상황을 처리하기 위해 form tag를 통해 유연하게 바꿀 수 있도록 한다.  -->
 	<form id="infoForm" action="/board/modify" method="get">
 		<input type="hidden" id="bno" name="bno" value='<c:out value="${pageInfo.bno}"/>'>
+		<input type="hidden"  name="pageNum" value='<c:out value="${cri.pageNum}"/>'>
+		<input type="hidden" name="amount" value='<c:out value="${cri.amount}"/>'>
 	</form>
 	
 <!-- 버튼 동작 script tag와 js코드 작성 -->

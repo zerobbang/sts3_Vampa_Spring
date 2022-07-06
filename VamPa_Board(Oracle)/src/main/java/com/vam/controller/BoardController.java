@@ -22,8 +22,6 @@ public class BoardController {
 	@Autowired
 	private BoardService bservice;
 	
-
-	
 	
 	// log 메서드를 사용할 수 있도록 한다.
 	// lombok은 어노테이션으로 가능 @log4j
@@ -38,6 +36,8 @@ public class BoardController {
     // 그 함수의 생성자에 맞춰서 바꿔준다.
     // total 추가
     public void boardListGET(Model model,Criteria cri) {
+    	// Criteria에 pageNum이 있고 get.jsp에는 bno가 있다.
+    	
     	// model 객체는 controller 에서 생성된 데이터를 담아 view 로 전달할 때 사용하는 객체
     	// servlet의 request.setAttribute()와 비슷한 역할을 한다.
         log.info("게시판 목록 페이지 진입");
@@ -86,18 +86,22 @@ public class BoardController {
 	// 게시글 상세 조회
 	// GET 요청은 페이지 이동이 거듭되는 동안 이전 페이지들의 요청 정보를 기억하고 있어야 한다.
 	// url 파라미터가 누적되어 전달되는데 이런 기법을 URL Rewrite 처리 한다.
-	@GetMapping
-	public void boardGetPage(int bno, Model model) {
+	@GetMapping("/get")
+	public void boardGetPage(int bno, Model model,Criteria cri) {
 		model.addAttribute("pageInfo",bservice.getPage(bno));
+		// pageNum, amount 넘겨주기
+		model.addAttribute("cri",cri);
 
 	}
 	
 	
 	// 수정 페이지 이동
 	@GetMapping("/modify")
-    public void boardModifyGET(int bno, Model model) {
+    public void boardModifyGET(int bno, Model model, Criteria cri) {
         
         model.addAttribute("pageInfo", bservice.getPage(bno));
+        // 수정 페이지로 넘어갈때도 pageNum, amount를 넘겨준다.
+        model.addAttribute("cri",cri);
         
     }
 	
@@ -122,6 +126,5 @@ public class BoardController {
     	return "redirect:/board/list";
     }
 	
-    
 
 }
