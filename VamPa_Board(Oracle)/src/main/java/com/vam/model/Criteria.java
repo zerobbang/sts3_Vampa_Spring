@@ -11,6 +11,9 @@ public class Criteria {
     /* 한 페이지 당 보여질 게시물 갯수 */
     private int amount;
     
+    // 검색 키워드 추가
+    private String keyword;
+    
     /* 기본 생성자 -> 기봅 세팅 : pageNum = 1, amount = 10 */
     public Criteria() {
         this(1,10);
@@ -25,7 +28,9 @@ public class Criteria {
         this.pageNum = pageNum;
         this.amount = amount;
     }
-    
     // 요청 페이지 숫자가 없으면 사용자 생성자로 넘겨주어 pageNum 1, amount 10으로 설정해준다. 
+    
+    
+    
 
 }

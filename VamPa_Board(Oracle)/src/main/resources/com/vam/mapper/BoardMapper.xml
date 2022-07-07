@@ -54,10 +54,16 @@
         
                 select /*+INDEX_DESC(vam_board pk_board) */ rownum  as rn, bno, title, content, writer, regdate, updatedate
                   
-                from vam_board where rownum <= #{pageNum} * #{amount}) 
+                from vam_board where rownum <= #{pageNum} * #{amount} ]]>
                 
+                <if test="keyword !=null">
+                <!-- oracle에서 concat 같은 기능을 하는 오라클의 연산자  -->
+                	and title like '%' || #{keyword} || '%'
+                </if>
+                
+     <![CDATA[   
+     )
         where rn > (#{pageNum} -1) * #{amount}
-    
     ]]>
     
     </select>
@@ -65,6 +71,12 @@
     <!-- total 구하는 쿼리 -->
     <select id="getTotal" resultType="int">
     	select count(*) from vam_board
+    	
+    	<!-- 검색을 했을 경우 -->
+    	<if test="keyword != null">
+            <!-- Oracle -->
+            where title like '%'||#{keyword}||'%'
+        </if>
     </select>
 
  

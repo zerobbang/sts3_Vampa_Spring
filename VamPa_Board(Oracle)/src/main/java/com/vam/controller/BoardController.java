@@ -48,7 +48,8 @@ public class BoardController {
         model.addAttribute("list", bservice.getListPaging(cri));
         // list에 bservice.getList()값을 담아 셋팅한다.
         
-        int total = bservice.getTotal();
+        int total = bservice.getTotal(cri);
+        
         PageMakeDTO pageMake = new PageMakeDTO(cri, total);
         model.addAttribute("pageMaker",pageMake);
         

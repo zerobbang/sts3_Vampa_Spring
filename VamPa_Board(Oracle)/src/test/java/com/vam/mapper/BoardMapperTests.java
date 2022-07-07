@@ -95,7 +95,9 @@ public class BoardMapperTests {
      
      @Test
      public void testGetTotal() {
-    	 int total = mapper.getTotal();
+    	 Criteria cri = new Criteria();
+    	 cri.setKeyword("list");
+    	 int total = mapper.getTotal(cri);
     	 log.info("총 : "+ total);
      }
      

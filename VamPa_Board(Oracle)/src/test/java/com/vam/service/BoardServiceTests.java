@@ -9,7 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.vam.model.BoardVO;
-import com.vam.model.PageMakeDTO;
+import com.vam.model.Criteria;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
@@ -59,8 +59,8 @@ public class BoardServiceTests {
     // 페이징 테스트 생략
     
     @Test
-    public void testGetTotal() {
-    	int total = service.getTotal();
+    public void testGetTotal(Criteria cri) {
+    	int total = service.getTotal(cri);
     	log.info("총"+total);
     	
     }

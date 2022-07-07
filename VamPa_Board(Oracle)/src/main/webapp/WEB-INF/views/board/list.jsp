@@ -72,6 +72,19 @@
  .active{
       background-color: #cdd5ec;
   }
+   .search_area{
+    display: inline-block;
+    margin-top: 30px;
+    margin-left: 260px;
+  }
+  .search_area input{
+      height: 30px;
+    width: 250px;
+  }
+  .search_area button{
+     width: 100px;
+    height: 36px;
+  }
  
   </style>
 </head>
@@ -108,6 +121,13 @@
         </c:forEach>
 	</table>
 
+	<!-- 검색 영역 -->
+	<div class="search_wrap">
+        <div class="search_area">
+            <input type="text" name="keyword" value="${pageMaker.cri.keyword }">
+            <button>Search</button>
+        </div>
+    </div> 
 
 	<!-- 번호 페이지 구현 -->
 	<div class="pageInfo_wrap" >
@@ -137,6 +157,7 @@
 	<form id="moveForm" method="get">    
 		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
         <input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+        <input type="hidden" name="keyword" value="${cri.keyword}">
     </form>
 </div>
 
@@ -210,6 +231,23 @@
         moveForm.attr("action", "/board/list");
         moveForm.submit();
         
+    });
+ 	
+ 	
+ 	
+ 	/* 검색 */
+ 	$(".search_area button").on("click", function(e){
+        e.preventDefault();
+        
+       
+        let val = $("input[name='keyword']").val();
+        
+        // 사용자가 입력한 keyword 데이터를 form 태그 내부에 있는 name속성이 keyword인 input 태그에 저장
+        moveForm.find("input[name='keyword']").val(val);
+        // form 태그 내부 name 속성이 pageNum인 <input>에 저장되어 있는 값을 1로 변경 후 서버 전송
+        // 검색한 리스트의 결과는 pgaeNum을 1부터 다시 시작
+        moveForm.find("input[name='pageNum']").val(1);
+        moveForm.submit();
     });
     
 </script>

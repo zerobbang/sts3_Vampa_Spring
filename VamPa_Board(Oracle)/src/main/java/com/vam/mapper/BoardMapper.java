@@ -28,6 +28,6 @@ public interface BoardMapper {
 	
     
     // 총 게시판 갯수
-    public int getTotal();
+    public int getTotal(Criteria cri);
 
 }
